@@ -17,6 +17,13 @@ COLOR_WHITE = (255, 255, 255)
 score_select = int(input("select the max points for the victory condition: "))
 SCORE_MAX = score_select
 
+#difficulty selection
+difficulty = int(input("select the difficulty level: 1 for easy"
+                       " 2 for medium"
+                       " 3 for hard"
+                       " 4 for hardcore"))
+
+
 #game screen
 size = (1280, 720)
 screen = pygame.display.set_mode(size)
@@ -78,8 +85,10 @@ soundtrack_list =\
 "SOUNDTRACKS/Masked Dedede 8 Bit Remix - Kirby Super Star Ultra (Konami VRC6) "
 "- Bulby.mp3",
 "SOUNDTRACKS/Castlevania II Music (NES) - Bloody Tears (Day Theme) - "
-"explod2A03.mp3"
- ]
+"explod2A03.mp3",
+ "SOUNDTRACKS/Attack of the Killer Queen - Toby Fox.mp3",
+ "SOUNDTRACKS/Thunderstruck (2023) [8 Bit Tribute to AC_DC] - 8 Bit Universe "
+ "- 8 Bit Universe.mp3"]
 
 soundtrack_selection = random.choice(soundtrack_list)
 soundtrack = pygame.mixer.Sound(soundtrack_selection)
@@ -186,9 +195,9 @@ while game_loop:
 
         # player 1 up movement
         if player_1_move_up and player_1_y >0 :
-            player_1_y -= 5
+            player_1_y -= 5.5
         if player_1_move_down and player_1_y < 570:
-            player_1_y += 5
+            player_1_y += 5.5
 
         # player 1 collides with upper wall
         if player_1_y <= 0:
@@ -199,11 +208,37 @@ while game_loop:
             player_1_y = 570
 
         # player 2 "Artificial Intelligence"
-        if ball_x > 640:
-            if player_2_y + 75 <= ball_y:
-                player_2_y += 4.7
-            elif player_2_y + 75 > ball_y:
-                player_2_y -= 4.7
+        if difficulty == 1:
+            if ball_x > 640:
+                if player_2_y + 75 <= ball_y:
+                    player_2_y += 5.5
+                elif player_2_y + 75 > ball_y:
+                    player_2_y -= 5.5
+
+        if difficulty == 2:
+            if ball_x > 560:
+                if player_2_y + 75 <= ball_y:
+                    player_2_y += 5.5
+                elif player_2_y + 75 > ball_y:
+                    player_2_y -= 5.5
+
+        if difficulty == 3:
+            if ball_x > 480:
+                if player_2_y + 75 <= ball_y:
+                    player_2_y += 5.5
+                elif player_2_y + 75 > ball_y:
+                    player_2_y -= 5.5
+
+        if difficulty == 4:
+            if ball_x > 200:
+                if player_2_y + 75 <= ball_y:
+                    player_2_y += 6
+                elif player_2_y + 75 > ball_y:
+                    player_2_y -= 6
+
+        else:
+            print("not a valid difficulty insert")
+            break
 
         #player 2 paddle returning to the original place
         if player_2_y <= 0:
